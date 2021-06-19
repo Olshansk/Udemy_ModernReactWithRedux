@@ -11,7 +11,7 @@ class SearchBar extends React.Component {
 
   onFormSubmit = (event) => {
     event.preventDefault();
-    // TODO: use axios to make a network request
+    this.props.onTermSubmit(this.state.term);
   };
 
   render() {
