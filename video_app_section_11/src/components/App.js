@@ -4,7 +4,10 @@ import youtube from "../apis/youtube";
 import VideoList from "./VideoList";
 
 class App extends React.Component {
-  state = { videos: [] };
+  state = {
+    videos: [],
+    selected_video: null,
+  };
 
   onTermSubmit = async (term) => {
     console.log(term);
@@ -19,11 +22,18 @@ class App extends React.Component {
     });
   };
 
+  onVideoSelect = (video) => {
+    console.log("App - onVideoSelect", video);
+  };
+
   render() {
     return (
       <div className="ui container">
         <SearchBar onTermSubmit={this.onTermSubmit} />
-        <VideoList videos={this.state.videos}></VideoList>
+        <VideoList
+          onVideoSelect={this.onVideoSelect}
+          videos={this.state.videos}
+        ></VideoList>
         Num videos: {this.state.videos.length}.
       </div>
     );
