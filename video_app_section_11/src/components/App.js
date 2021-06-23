@@ -10,6 +10,10 @@ class App extends React.Component {
     selected_video: null,
   };
 
+  componentDidMount() {
+    this.onTermSubmit("buildings");
+  }
+
   onTermSubmit = async (term) => {
     console.log(term);
     const response = await youtube.get("/search", {
@@ -20,6 +24,7 @@ class App extends React.Component {
 
     this.setState({
       videos: response.data.items,
+      selected_video: response.data.items[0],
     });
   };
 
@@ -34,11 +39,19 @@ class App extends React.Component {
     return (
       <div className="ui container">
         <SearchBar onTermSubmit={this.onTermSubmit} />
-        <VideoDetail video={this.state.selected_video}></VideoDetail>
-        <VideoList
-          onVideoSelect={this.onVideoSelect}
-          videos={this.state.videos}
-        ></VideoList>
+        <div className="ui grid">
+          <div className="ui row">
+            <div className="eleven wide column">
+              <VideoDetail video={this.state.selected_video} />
+            </div>
+            <div className="five wide column">
+              <VideoList
+                onVideoSelect={this.onVideoSelect}
+                videos={this.state.videos}
+              />
+            </div>
+          </div>
+        </div>
         Num videos: {this.state.videos.length}.
       </div>
     );
