@@ -18,9 +18,12 @@ const items = [
 
 export default () => {
   return (
-    <h1>
-      Widgets App
-      <Accordion items={items}></Accordion>
-    </h1>
+    <div>
+      <h1>Widgets App</h1>
+      <br></br>
+      <div>
+        <Accordion items={items}></Accordion>
+      </div>
+    </div>
   );
 };
