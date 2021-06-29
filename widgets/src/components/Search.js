@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Search = (props) => {
   const [term, setTerm] = useState("");
@@ -6,6 +6,18 @@ const Search = (props) => {
   const onTermChanged = (event) => {
     setTerm(event.target.value);
   };
+
+  useEffect(() => {
+    console.log("I run on initial render only");
+  }, []);
+
+  useEffect(() => {
+    console.log("I run on every re-render");
+  });
+
+  useEffect(() => {
+    console.log("I run on every re-render and when data has changed");
+  }, [term]);
 
   return (
     <div>
