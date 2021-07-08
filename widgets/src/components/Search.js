@@ -37,10 +37,21 @@ const Search = (props) => {
     }
   }, [term]);
 
+  const renderedResults = searchResults.map((result) => {
+    return (
+      <div className="item" key={result.pageid}>
+        <div className="content">
+          <div className="header">{result.title}</div>
+          <span dangerouslySetInnerHTML={{ __html: result.snippet }}></span>
+        </div>
+      </div>
+    );
+  });
+
   return (
     <div>
       <div className="ui form">
-        <div class="field">
+        <div className="field">
           <label>Enter search term</label>
           <input
             type="text"
@@ -50,6 +61,7 @@ const Search = (props) => {
           ></input>
         </div>
       </div>
+      <div className="ui relaxed divided list">{renderedResults}</div>
     </div>
   );
 };
