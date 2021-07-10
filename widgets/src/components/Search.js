@@ -34,17 +34,16 @@ const Search = (props) => {
       setSearchResults(data.query.search);
     };
 
-    if (searchTimer) {
-      clearTimeout(searchTimer);
-    }
+    const timerId = setTimeout(() => {
+      if (term) {
+        search();
+      }
+    }, 500);
 
-    setSearchTimer(
-      setTimeout(() => {
-        if (term) {
-          search();
-        }
-      }, 500)
-    );
+    return () => {
+      console.log("Clearing timer", timerId);
+      clearTimeout(timerId);
+    };
   }, [term]);
 
   const renderedResults = searchResults.map((result) => {
