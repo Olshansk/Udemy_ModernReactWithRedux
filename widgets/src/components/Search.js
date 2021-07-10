@@ -4,6 +4,7 @@ import axios from "axios";
 const Search = (props) => {
   const [term, setTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [searchTimer, setSearchTimer] = useState(null);
 
   const onTermChanged = (event) => {
     setTerm(event.target.value);
@@ -32,14 +33,31 @@ const Search = (props) => {
       });
       setSearchResults(data.query.search);
     };
-    if (term) {
-      search();
+
+    if (searchTimer) {
+      clearTimeout(searchTimer);
     }
+
+    setSearchTimer(
+      setTimeout(() => {
+        if (term) {
+          search();
+        }
+      }, 500)
+    );
   }, [term]);
 
   const renderedResults = searchResults.map((result) => {
     return (
       <div className="item" key={result.pageid}>
+        <div className="right floated content">
+          <a
+            className="ui button"
+            href={`https://en.wikipedia.org?curid=${result.pageid}`}
+          >
+            Search on Wiki
+          </a>
+        </div>
         <div className="content">
           <div className="header">{result.title}</div>
           <span dangerouslySetInnerHTML={{ __html: result.snippet }}></span>
