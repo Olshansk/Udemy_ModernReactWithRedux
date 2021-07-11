@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const Search = (props) => {
-  const [term, setTerm] = useState("");
+  const [term, setTerm] = useState("default");
+  const [debouncedTerm, setDebouncedTerm] = useState(term);
   const [searchResults, setSearchResults] = useState([]);
-  const [searchTimer, setSearchTimer] = useState(null);
 
   const onTermChanged = (event) => {
     setTerm(event.target.value);
@@ -21,6 +21,16 @@ const Search = (props) => {
   });
 
   useEffect(() => {
+    const timerId = setTimeout(() => {
+      setDebouncedTerm(term);
+    }, 500);
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [term]);
+
+  useEffect(() => {
     const search = async () => {
       const { data } = await axios.get("https://en.wikipedia.org/w/api.php", {
         params: {
@@ -28,23 +38,16 @@ const Search = (props) => {
           list: "search",
           origin: "*",
           format: "json",
-          srsearch: term,
+          srsearch: debouncedTerm,
         },
       });
       setSearchResults(data.query.search);
     };
 
-    const timerId = setTimeout(() => {
-      if (term) {
-        search();
-      }
-    }, 500);
-
-    return () => {
-      console.log("Clearing timer", timerId);
-      clearTimeout(timerId);
-    };
-  }, [term]);
+    if (debouncedTerm) {
+      search();
+    }
+  }, [debouncedTerm]);
 
   const renderedResults = searchResults.map((result) => {
     return (
