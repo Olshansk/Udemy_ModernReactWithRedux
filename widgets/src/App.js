@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // import Accordion from "./components/Accordion";
-import Search from "./components/Search";
+// import Search from "./components/Search";
 import Dropdown from "./components/Dropdown";
 
 // const items = [
