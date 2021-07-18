@@ -1,7 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Dropdown = (props) => {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.addEventListener(
+      "click",
+      (event) => {
+        console.log(event.target);
+      },
+      { capture: true }
+    );
+  }, []);
 
   const { options, selected, onSelectedChange } = props;
   const renderOptions = options.map((option) => {
