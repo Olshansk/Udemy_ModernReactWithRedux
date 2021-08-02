@@ -17,7 +17,7 @@ const Dropdown = (props) => {
     );
   }, []);
 
-  const { options, selected, onSelectedChange } = props;
+  const { options, selected, onSelectedChange, label } = props;
   const renderOptions = options.map((option) => {
     if (option.value === selected.value) {
       return null;
@@ -36,7 +36,7 @@ const Dropdown = (props) => {
   return (
     <div ref={ref} className="ui form">
       <div className="field">
-        <label className="label">Select a Color</label>
+        <label className="label">{label}</label>
         <div
           onClick={() => setOpen(!open)}
           className={`ui selection dropdown ${open ? "visible active" : ""}`}
