@@ -23,7 +23,11 @@ const Accordion = ({ items }) => {
     );
   });
 
-  return <div className="ui styled accordion">{renderedItems}</div>;
+  return (
+  <div className="ui container">
+    <div className="ui styled accordion">{renderedItems}</div>
+  </div>
+  );
 };
 
 export default Accordion;
