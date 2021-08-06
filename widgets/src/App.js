@@ -4,6 +4,7 @@ import Translate from "./components/Translate";
 import Dropdown from "./components/Dropdown";
 import Accordion from "./components/Accordion";
 import Search from "./components/Search";
+import Header from "./components/Header";
 
 const ACCORDION_ITEMS = [
   {
@@ -35,12 +36,13 @@ const App = () => {
   const [dropdownItem, setDropdownItem] = useState(DROPDOWN_ITEMS[0]);
   return (
     <div>
+      <Header/>
       <Route path="/">
         <Accordion
           items={ACCORDION_ITEMS}
         />
       </Route>
-      <Route path="/list">
+      <Route path="/search">
         <Search/>
       </Route>
       <Route path="/dropdown">

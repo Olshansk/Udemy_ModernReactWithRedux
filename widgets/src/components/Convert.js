@@ -19,7 +19,7 @@ const Convert = ({language, text}) => {
       setTranslated(data.data.translations[0].translatedText);;
     };
     doTranslation();
-  }, [debouncedText]);
+  }, [debouncedText, language]);
 
   useEffect(() => {
     const timerId = setTimeout(() => {
