@@ -1,10 +1,17 @@
 import React from "react";
 
-const Link  = (props) => {
-  const {className, href, children} = props;
+const Link = (props) => {
+  const { className, href, children } = props;
 
   const onClick = (event) => {
-    event.preventDefaults();
+    if (event.ctrlKey || event.metaKey) {
+      return;
+    }
+    event.preventDefault();
+    window.history.pushState({}, "", href);
+
+    const navEvent = new PopStateEvent("popstate");
+    window.dispatchEvent(navEvent);
   };
 
   return (
